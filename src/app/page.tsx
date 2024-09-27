@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MindmapFormWrapper } from "./mindmap/mindmap-form-wrapper";
+import { MindmapFormWrapper } from "./mindmap/MindmapFormWrapper";
 
 export default function Home() {
   return (

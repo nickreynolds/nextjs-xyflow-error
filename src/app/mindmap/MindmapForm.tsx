@@ -17,14 +17,11 @@ import SP123Node from "./mind-map-node/sp123-node";
 const nodeTypes = {
 	sp123: SP123Node,
 };
-
 const edgeTypes = {
 	mindmap: MindMapEdge,
 };
-
 // this places the node origin in the center of a node
 const nodeOrigin: NodeOrigin = [0.5, 0.5];
-
 // we have to import the React Flow styles for it to work
 import "@xyflow/react/dist/style.css";
 import { nanoid } from "nanoid";
@@ -33,7 +30,7 @@ const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 export function MindmapForm() {
-	const [nodes, setNodes, onNodesChange] = useNodesState([]);
+	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 	const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 	const { screenToFlowPosition } = useReactFlow();
 
