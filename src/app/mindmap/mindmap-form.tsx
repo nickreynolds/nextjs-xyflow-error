@@ -38,8 +38,7 @@ export function MindmapForm() {
 	const { screenToFlowPosition } = useReactFlow();
 
 	const onConnect = useCallback(
-		// biome-ignore lint: allow any
-		(params: any) => setEdges((eds) => addEdge(params, eds)),
+		(params) => setEdges((eds) => addEdge(params, eds)),
 		[setEdges],
 	);
 
@@ -62,8 +61,7 @@ export function MindmapForm() {
 		<div
 			className="w-5/6 h-5/6"
 			onPaste={(e) => {
-				const pastedText = e.clipboardData.getData("text");
-				
+				const pastedText = e.clipboardData.getData("text");				
 					addSp123Node(pastedText);
 			}}
 		>
