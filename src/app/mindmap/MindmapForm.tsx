@@ -1,24 +1,26 @@
 import { useCallback } from "react";
 import {
-	Background,
-	Controls,
-	type Edge,
-	type NodeOrigin,
-	ReactFlow,
-	addEdge,
-	useEdgesState,
-	useNodesState,
-	useReactFlow,
+  Background,
+  BackgroundVariant,
+  Controls,
+  type Edge,
+  type Node,
+  type NodeOrigin,
+  ReactFlow,
+  addEdge,
+  useEdgesState,
+  useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 
 import MindMapEdge from "./mind-map-edge/mind-map-edge";
 import SP123Node from "./mind-map-node/sp123-node";
 
 const nodeTypes = {
-	sp123: SP123Node,
+  sp123: SP123Node,
 };
 const edgeTypes = {
-	mindmap: MindMapEdge,
+  mindmap: MindMapEdge,
 };
 // this places the node origin in the center of a node
 const nodeOrigin: NodeOrigin = [0.5, 0.5];
@@ -30,52 +32,51 @@ const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 export function MindmapForm() {
-	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-	const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-	const { screenToFlowPosition } = useReactFlow();
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const { screenToFlowPosition } = useReactFlow();
 
-	const onConnect = useCallback(
-		(params) => setEdges((eds) => addEdge(params, eds)),
-		[setEdges],
-	);
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges]
+  );
 
-	const addSp123Node = (sp123ID: string) => {
-		const id = nanoid();
-		const newNode = {
-			id,
-			position: screenToFlowPosition({
-				x: 200,
-				y: 200,
-			}),
-			data: { sp123ID: sp123ID },
-			origin: [0.5, 0.5],
-			type: "sp123",
-		};
-		setNodes((nds) => nds.concat(newNode));
-	};
+  const addSp123Node = (sp123ID: string) => {
+    const id = nanoid();
+    const newNode = {
+      id,
+      position: screenToFlowPosition({
+        x: 200,
+        y: 200,
+      }),
+      data: { sp123ID: sp123ID },
+      type: "sp123",
+    };
+    setNodes([...nodes, newNode]);
+  };
 
-	return (
-		<div
-			className="w-5/6 h-5/6"
-			onPaste={(e) => {
-				const pastedText = e.clipboardData.getData("text");				
-					addSp123Node(pastedText);
-			}}
-		>
-			<ReactFlow
-				nodes={nodes}
-				edges={edges}
-				onNodesChange={onNodesChange}
-				onEdgesChange={onEdgesChange}
-				nodeTypes={nodeTypes}
-				edgeTypes={edgeTypes}
-				nodeOrigin={nodeOrigin}
-				onConnect={onConnect}
-				fitView
-			>
-				<Controls showInteractive={false} />
-				<Background variant="dots" gap={12} size={1} />
-			</ReactFlow>
-		</div>
-	);
+  return (
+    <div
+      className="w-5/6 h-5/6"
+      onPaste={(e) => {
+        const pastedText = e.clipboardData.getData("text");
+        addSp123Node(pastedText);
+      }}
+    >
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        nodeOrigin={nodeOrigin}
+        onConnect={onConnect}
+        fitView
+      >
+        <Controls showInteractive={false} />
+        <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
+      </ReactFlow>
+    </div>
+  );
 }

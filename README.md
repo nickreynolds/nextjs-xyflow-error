@@ -1,6 +1,6 @@
 # NextJS + ReactFlow Error Demo App
 
-This app reproduces several errors encountered when trying to use the ReactFlow library in a NextJS app.
+This app reproduces 1 error encountered when trying to use the ReactFlow library in a NextJS app.
 
 This app was built by running `npx create-next-app@latest` with default options, then installing `@xyflow/react`, and building a very simple demo app based on the examples in the [React Flow Quickstart](https://reactflow.dev/learn).
 
@@ -8,20 +8,6 @@ Even with this simple example, there are several type errors found.
 
 In the file `MindmapForm.tsx` we see the following errors:
 
-## Line 32-36:
-
-```
-const initialNodes: Node[] = [];
-
-const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-```
-
-Fails to compile with the following error:
-```
-Type error: Argument of type 'Node[]' is not assignable to parameter of type 'import("/Users/nick/dec/nextjs-xyflow-error/node_modules/.pnpm/@xyflow+react@12.3.1_@types+react@18.3.9_react-dom@18.3.1_react@18.3.1/node_modules/@xyflow/react/dist/esm/types/nodes").Node[]'.
-  Type 'Node' is not assignable to type 'import("/Users/nick/dec/nextjs-xyflow-error/node_modules/.pnpm/@xyflow+react@12.3.1_@types+react@18.3.9_react-dom@18.3.1_react@18.3.1/node_modules/@xyflow/react/dist/esm/types/nodes").Node'.
-    Type 'Node' is missing the following properties from type 'NodeBase<Record<string, unknown>, string>': id, position, data
-```
 
 ## Lines 40-43:
 
@@ -36,40 +22,6 @@ Gives a type error of:
 ```
 Parameter 'params' implicitly has an 'any' type.
 ```
-
-## Line 57:
-
-```
-setNodes((nds) => nds.concat(newNode));
-```
-
-Gives an error of:
-```
-No overload matches this call.
-  Overload 1 of 2, '(...items: ConcatArray<Node>[]): Node[]', gave the following error.
-    Argument of type '{ id: string; position: XYPosition; data: { sp123ID: string; }; origin: number[]; type: string; }' is not assignable to parameter of type 'ConcatArray<Node>'.
-      Type '{ id: string; position: XYPosition; data: { sp123ID: string; }; origin: number[]; type: string; }' is missing the following properties from type 'ConcatArray<Node>': length, join, slice
-  Overload 2 of 2, '(...items: (Node | ConcatArray<Node>)[]): Node[]', gave the following error.
-    Argument of type '{ id: string; position: XYPosition; data: { sp123ID: string; }; origin: number[]; type: string; }' is not assignable to parameter of type 'Node | ConcatArray<Node>'.
-      Type '{ id: string; position: XYPosition; data: { sp123ID: string; }; origin: number[]; type: string; }' is not assignable to type 'Node'.
-        Type '{ id: string; position: XYPosition; data: { sp123ID: string; }; origin: number[]; type: string; }' is not assignable to type 'NodeBase<Record<string, unknown>, string>'.
-          Types of property 'origin' are incompatible.
-            Type 'number[]' is not assignable to type '[number, number]'.
-              Target requires 2 element(s) but source may have fewer.
-```
-
-## Line 80:
-
-```
-<Background variant="dots" gap={12} size={1} />
-```
-
-Gives an error of:
-```
-Type '"dots"' is not assignable to type 'BackgroundVariant | undefined'.ts(2322)
-types.d.ts(29, 5): The expected type comes from property 'variant' which is declared here on type 'IntrinsicAttributes & BackgroundProps'
-```
-
 
 ## NextJS Boilerplate README Below
 
