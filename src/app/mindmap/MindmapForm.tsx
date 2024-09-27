@@ -33,7 +33,7 @@ const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 export function MindmapForm() {
-	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+	const [nodes, setNodes, onNodesChange] = useNodesState([]);
 	const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 	const { screenToFlowPosition } = useReactFlow();
 
